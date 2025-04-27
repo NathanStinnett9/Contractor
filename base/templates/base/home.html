@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+{% load static %}  <!-- Add this line to load static files -->
+
+{% block content %}
+<!-- Set background color just for this page -->
+<style>
+    body {
+        background-color: white; /* Change this color to whatever you want */
+    }
+</style>
+
+<main class="layout layout--3">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <!-- Main Content with Large Picture -->
+        <section class="hero" style="width: 100%; height: 300px; overflow: hidden;">
+            <img src="{% static 'images/contractor.jpg' %}" alt="Large Picture" class="hero-image"
+            style="display: block; width: 100%; height: 100%; object-fit: cover;" />
+        </section>
+
+        <!-- Add text below the image (as part of normal content) -->
+        <section class="hero-text" style="text-align: center; padding: 20px 0; color: black; font-size: 24px; font-weight: bold; clear: both;">
+            <h1>Your Text Here</h1>
+            <p>Additional description or content here. This text will move down as you scroll the page.</p>
+        </section>
+
+        <!-- You can add more content below if needed -->
+        <section class="additional-content">
+            <p>More content can go here.</p>
+        </section>
+
+        <!-- Spacer Section to Make Page Scrollable -->
+        <section style="height: 1500px;">
+            <!-- Just empty space to allow scrolling -->
+        </section>
+
+        <!-- Back to Top Button -->
+        <button onclick="scrollToTop()" 
+            style="position: fixed; bottom: 30px; right: 30px; padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+            Back to Top
+        </button>
+    </div>
+</main>
+
+<!-- Add small JS script to handle Back to Top -->
+<script>
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>
+{% endblock %}
