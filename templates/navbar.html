@@ -23,7 +23,7 @@
         <nav class="header__menu" style="display: flex; align-items: center; position: relative;">
             {% if request.user.is_authenticated %}
                 <div class="header__user" style="display: flex; align-items: center; gap: 10px;">
-                    <a href="{% url 'update-user' %}" style="display: flex; align-items: center; text-decoration: none; color: white;">
+                    <a href="{% url 'user-profile' request.user.id %}" style="display: flex; align-items: center; text-decoration: none; color: white;">
                         <div class="avatar avatar--medium active" style="height: 40px; width: 40px; border-radius: 50%; overflow: hidden;">
                             <img src="{{ request.user.avatar.url }}" alt="User Avatar" style="height: 100%; width: 100%; object-fit: cover;" />
                         </div>
