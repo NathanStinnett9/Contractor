@@ -3,19 +3,23 @@
 {% block content %}
 
 <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 30px;">
-    <h1>Want to post a job?</h1>
-    <p>This is the place to do it!</p>
+    
+    {% if request.user.user_type == 'company' %}
+        <h1>Want to post a job?</h1>
+        <p>This is the place to do it!</p>
 
-    <!-- Room Creation Button -->
-    <div class="room-creation-btn-container">
-        <a href="{% url 'create-room' %}" class="btn btn--main">Create Job Posting</a>
-    </div>
+        <!-- Room Creation Button -->
+        <div class="room-creation-btn-container">
+            <a href="{% url 'create-room' %}" class="btn btn--main">Create Job Posting</a>
+        </div>
+    {% endif %}    
+    
     <div class="search-bar">
         <form method="GET" action="{% url 'jobs' %}">
             <input type="text" name="q" placeholder="Search jobs..."/>
         </form>
     </div>
-        
+
     {% if request.GET.q %}
     <section class="additional-content">
         <h2>Jobs That Fit Your Search: "{{ request.GET.q }}"</h2>
