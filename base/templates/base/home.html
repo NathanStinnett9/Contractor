@@ -32,7 +32,6 @@
             clear: both;">
             
             <h1 style="margin: 0;">Featured Job Postings</h1>
-            <p style="font-weight: normal; font-size: 18px; margin-top: 10px;">Job Postings From this Month</p>
         </section>
 
         <!-- You can add more content below if needed -->
@@ -40,7 +39,7 @@
             <h2>Top Active Job Postings</h2>
             <div>
                 {% if request.user.user_type == 'company' %}
-                    <a href="{% url 'create-room' %}">Create Room</a>
+                    <a href="{% url 'create-room' %}">Create Job Posting</a>
                 {% endif %}
                 {% include 'base/feed_component.html' %}
             </div>

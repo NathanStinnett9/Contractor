@@ -1,6 +1,8 @@
 {% extends 'main.html' %}
 
 {% block content %}
+
+<div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 30px;">
     <h1>Want to post a job?</h1>
     <p>This is the place to do it!</p>
 
@@ -8,6 +10,34 @@
     <div class="room-creation-btn-container">
         <a href="{% url 'create-room' %}" class="btn btn--main">Create Job Posting</a>
     </div>
+    <div class="search-bar">
+        <form method="GET" action="{% url 'jobs' %}">
+            <input type="text" name="q" placeholder="Search jobs..."/>
+        </form>
+    </div>
+        
+    {% if request.GET.q %}
+    <section class="additional-content">
+        <h2>Jobs That Fit Your Search: "{{ request.GET.q }}"</h2>
+        <div>
+            {% if request.user.user_type == 'company' %}
+                <a href="{% url 'create-room' %}">Create Job Posting</a>
+            {% endif %}
+            {% include 'base/feed_component.html' %}
+        </div>
+    </section>
+    {% else %}
+    <section class="additional-content">
+        <h2>All Jobs</h2>
+        <div>
+            {% if request.user.user_type == 'company' %}
+                <a href="{% url 'create-room' %}">Create Job Posting</a>
+            {% endif %}
+            {% include 'base/feed_component.html' %}
+        </div>
+    </section>
+    {% endif %}
+</div>
 
     <!-- Back to Top Button -->
     <button onclick="scrollToTop()" 
