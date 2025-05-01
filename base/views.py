@@ -14,8 +14,26 @@ def jobsPage(request):
 
 # My Jobs and Reviews Page View
 def myJobsReviewsPage(request):
-    # Add your logic here (e.g., querying user's jobs and reviews)
-    return render(request, 'base/my_jobs_reviews.html')
+    if request.user.is_authenticated:
+        # Get rooms where the user is the host
+        rooms_hosted = Room.objects.filter(host=request.user)
+
+        # Get rooms where the user is a participant
+        rooms_participated = Room.objects.filter(participants=request.user)
+
+        # Get messages that the user has sent
+        messages_sent = Message.objects.filter(user=request.user)
+
+        # Pass the data to the template
+        return render(request, 'base/my_jobs_reviews.html', {
+            'rooms_hosted': rooms_hosted,
+            'rooms_participated': rooms_participated,
+            'messages_sent': messages_sent
+        })
+    else:
+        return render(request, 'base/my_jobs_reviews.html', {
+            'error': 'You need to be logged in to view your rooms, messages, and topics.'
+        })
 
 # Login Page View
 def loginPage(request):

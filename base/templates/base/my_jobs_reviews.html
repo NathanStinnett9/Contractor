@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <h1>Your Rooms, Topics, and Messages</h1>
+
+    {% if rooms_hosted or rooms_participated or messages_sent %}
+        <h2>Rooms You've Hosted</h2>
+        <ul>
+            {% for room in rooms_hosted %}
+                <li>
+                    <strong>{{ room.name }}</strong>: {{ room.description }}
+                    <br>
+                    <strong>Topic:</strong> {{ room.topic.name }}
+                    <br>
+                    <strong>Participants:</strong> 
+                    {% for participant in room.participants.all %}
+                        {{ participant.username }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    <br>
+                    <strong>Updated:</strong> {{ room.update }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Rooms You're Participating In</h2>
+        <ul>
+            {% for room in rooms_participated %}
+                <li>
+                    <strong>{{ room.name }}</strong>: {{ room.description }}
+                    <br>
+                    <strong>Topic:</strong> {{ room.topic.name }}
+                    <br>
+                    <strong>Participants:</strong> 
+                    {% for participant in room.participants.all %}
+                        {{ participant.username }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    <br>
+                    <strong>Updated:</strong> {{ room.update }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Your Messages</h2>
+        <ul>
+            {% for message in messages_sent %}
+                <li>
+                    <strong>{{ message.room.name }}:</strong> {{ message.body }}
+                    <br>
+                    <strong>Sent at:</strong> {{ message.create }}
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>You haven't created any rooms or sent any messages yet.</p>
+    {% endif %}
+{% endblock %}
