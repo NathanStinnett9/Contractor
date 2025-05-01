@@ -1,57 +1,47 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <h1>Your Rooms, Topics, and Messages</h1>
+<style>
+    body {
+        background-color: rgb(255, 255, 255); /* Change this color to whatever you want */
+    }
+</style>
+<h1>Your Dashboard</h1>
 
-    {% if rooms_hosted or rooms_participated or messages_sent %}
-        <h2>Rooms You've Hosted</h2>
-        <ul>
-            {% for room in rooms_hosted %}
-                <li>
-                    <strong>{{ room.name }}</strong>: {{ room.description }}
-                    <br>
-                    <strong>Topic:</strong> {{ room.topic.name }}
-                    <br>
-                    <strong>Participants:</strong> 
-                    {% for participant in room.participants.all %}
-                        {{ participant.username }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                    <br>
-                    <strong>Updated:</strong> {{ room.update }}
-                </li>
-            {% endfor %}
-        </ul>
-
-        <h2>Rooms You're Participating In</h2>
-        <ul>
-            {% for room in rooms_participated %}
-                <li>
-                    <strong>{{ room.name }}</strong>: {{ room.description }}
-                    <br>
-                    <strong>Topic:</strong> {{ room.topic.name }}
-                    <br>
-                    <strong>Participants:</strong> 
-                    {% for participant in room.participants.all %}
-                        {{ participant.username }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                    <br>
-                    <strong>Updated:</strong> {{ room.update }}
-                </li>
-            {% endfor %}
-        </ul>
-
-        <h2>Your Messages</h2>
-        <ul>
-            {% for message in messages_sent %}
-                <li>
-                    <strong>{{ message.room.name }}:</strong> {{ message.body }}
-                    <br>
-                    <strong>Sent at:</strong> {{ message.create }}
-                </li>
-            {% endfor %}
-        </ul>
-
+<div class="additional-content">
+    <h2>Companies You've Applied For</h2>
+    {% if applications %}
+        {% include 'base/feed_component.html' with items=applications %}
     {% else %}
-        <p>You haven't created any rooms or sent any messages yet.</p>
+        <p>You haven't applied to any companies yet.</p>
     {% endif %}
+</div>
+
+<div class="additional-content">
+    <h2>Rooms You've Hosted</h2>
+    {% if rooms_hosted %}
+        {% include 'base/feed_component.html' with items=rooms_hosted %}
+    {% else %}
+        <p>You haven't hosted any rooms yet.</p>
+    {% endif %}
+</div>
+
+<div class="additional-content">
+    <h2>Rooms You've Participated In</h2>
+    {% if rooms_participated %}
+        {% include 'base/feed_component.html' with items=rooms_participated %}
+    {% else %}
+        <p>You haven't participated in any rooms yet.</p>
+    {% endif %}
+</div>
+
+<div class="additional-content">
+    <h2>Reviews / Messages You've Sent</h2>
+    {% if messages_sent %}
+        {% include 'base/feed_component.html' with items=messages_sent %}
+    {% else %}
+        <p>You haven't sent any reviews or messages yet.</p>
+    {% endif %}
+</div>
+
 {% endblock %}

@@ -1,13 +1,17 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<style>
+    body {
+        background-color: rgb(255, 255, 255); /* Change this color to whatever you want */
+    }
+</style>
 
 <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 30px;">
     
+        <h1 style="color: black;">Want to post a job?</h1>
+        <p style="color: black;">This is the place to do it!</p>
     {% if request.user.user_type == 'company' %}
-        <h1>Want to post a job?</h1>
-        <p>This is the place to do it!</p>
-
         <!-- Room Creation Button -->
         <div class="room-creation-btn-container">
             <a href="{% url 'create-room' %}" class="btn btn--main">Create Job Posting</a>
@@ -32,43 +36,29 @@
     </section>
     {% else %}
     <section class="additional-content">
-        <h2>All Jobs</h2>
+        <h2 style="color: black;">All Jobs</h2>
         <div>
-            {% if request.user.user_type == 'company' %}
-                <a href="{% url 'create-room' %}">Create Job Posting</a>
-            {% endif %}
             {% include 'base/feed_component.html' %}
         </div>
     </section>
     {% endif %}
 </div>
 
-    <!-- Back to Top Button -->
-    <button onclick="scrollToTop()" 
-        id="backToTopBtn" 
-        style="position: fixed; bottom: 30px; right: 30px; padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; display: none;">
-        Back to Top
-    </button>
+<section style="height: 1500px;">
+    <!-- Just empty space to allow scrolling -->
+</section>
 
-    <!-- Script to handle Back to Top Button -->
-    <script>
-        // Get the button
-        var mybutton = document.getElementById("backToTopBtn");
-
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function() {scrollFunction()};
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        // When the user clicks on the button, scroll to the top of the document
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+<!-- Back to Top Button -->
+<button onclick="scrollToTop()" 
+    style="position: fixed; bottom: 30px; right: 30px; padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+    Back to Top
+</button>
+<script>
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>
 {% endblock %}

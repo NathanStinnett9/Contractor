@@ -36,11 +36,8 @@
 
         <!-- You can add more content below if needed -->
         <section class="additional-content">
-            <h2>Top Active Job Postings</h2>
+            <h2 style="color: black;">Top Active Job Postings</h2>
             <div>
-                {% if request.user.user_type == 'company' %}
-                    <a href="{% url 'create-room' %}">Create Job Posting</a>
-                {% endif %}
                 {% include 'base/feed_component.html' %}
             </div>
         </section>
