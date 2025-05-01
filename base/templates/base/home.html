@@ -39,7 +39,6 @@
         <section class="additional-content">
             <h2>Top Active Job Postings</h2>
             <div>
-                <h5>{{room_count}} rooms available</h5>
                 {% if request.user.user_type == 'company' %}
                     <a href="{% url 'create-room' %}">Create Room</a>
                 {% endif %}
