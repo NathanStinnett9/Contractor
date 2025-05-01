@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<main class="auth layout">
+  <div class="container">
+    <div class="layout__box">
+      <div class="layout__boxHeader">
+        <div class="layout__boxTitle">
+          <h3>Register</h3>
+        </div>
+      </div>
+      <div class="layout__body">
+        <h2 class="auth__tagline">Find your study partner</h2>
+
+        <form class="form" action="" method="POST">
+          {% csrf_token %}
+
+          <!-- User Type Dropdown -->
+          <div class="form__group">
+            <label for="{{ form.user_type.id_for_label }}">User Type</label>
+            {{ form.user_type }}
+            {% if form.user_type.errors %}
+              <div class="error">
+                {% for error in form.user_type.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Username, Email, and Password Fields -->
+          {% for field in form %}
+            {% if field.name != 'user_type' %}
+              <div class="form__group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                  <div class="error">
+                    {% for error in field.errors %}
+                      <p>{{ error }}</p>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <button class="btn btn--main" type="submit">
+            Register
+          </button>
+        </form>
+
+        <div class="auth__action">
+          <p>Already signed up?</p>
+          <a href="{% url 'login' %}" class="btn btn--link">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
