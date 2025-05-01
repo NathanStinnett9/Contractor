@@ -18,5 +18,5 @@ urlpatterns = [
 
     # Add the two new pages: Jobs and My Jobs and Reviews
     path('jobs/', views.jobsPage, name="jobs"),
-    path('my-jobs-reviews/', views.myJobsReviewsPage, name="my-jobs-reviews"),
+    path('my-jobs-reviews/', views.myJobsReviewsPage, name='my-jobs-reviews'),  # Updated the name here to match the template
 ]
