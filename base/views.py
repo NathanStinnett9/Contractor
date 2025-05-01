@@ -64,16 +64,25 @@ def loginPage(request):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            messages.error(request, 'Username or password does not exist')
-            return redirect('login')
-
+            try:
+                user = User.objects.get(username=email)
+                email = User.objects.get(username=email).email
+            except User.DoesNotExist:
+                messages.error(request, 'Username, email, or password does not exist')
+                return redirect('login')
+            
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Username or password is incorrect')
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.error(request, 'Username, email, or password is incorrect/does not exist')
 
     return render(request, 'base/login.html')
 

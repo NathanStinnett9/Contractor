@@ -19,6 +19,7 @@
             <div class="avatar avatar--large active">
               <img src="https://randomuser.me/api/portraits/men/11.jpg" />
             </div>
+<<<<<<< HEAD
           </div>
           <div class="profile__info">
             <h3>{{user.username}}</h3>
@@ -35,8 +36,18 @@
               accusamus repudiandae quis ab ex exercitationem rem?
             </p>
           </div>
+=======
+
+            <div class="roomList__header">
+                <h2>Messages Sent by {{ user.username }}</h2>
+            </div>
+
+            {% include 'base/feed_component.html' %}
+<<<<<<< HEAD
+>>>>>>> 4e7f5cd79b693657ed834da5d9e15fd95e21500b
         </div>
 
+<<<<<<< HEAD
         <div class="roomList__header">
           <div>
             <h2>Study Rooms Hosted by dennis_ivy</a>
@@ -50,6 +61,13 @@
       <!-- Activities Start -->
       {% include 'base/activity_component.html' %}
       <!-- Activities End -->
+=======
+        {% include 'base/activity_component.html' %}
+=======
+            {% include 'base/activity_component.html' %}
+        </div>
+>>>>>>> temp-branch
+>>>>>>> 4e7f5cd79b693657ed834da5d9e15fd95e21500b
     </div>
   </main>
 {% endblock content %}
