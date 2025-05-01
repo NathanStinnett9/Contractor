@@ -172,19 +172,20 @@ def createRoom(request):
     topics = Topic.objects.all()
     
     if request.method == 'POST':
-        # Get topic or create it if it doesn't exist
-        topic_name = request.POST.get('topic')
-        topic, created = Topic.objects.get_or_create(name=topic_name)
+        form = RoomForm(request.POST, request.FILES)  # Handle file upload
+        if form.is_valid():
+            # Get topic or create it if it doesn't exist
+            topic_name = request.POST.get('topic')
+            topic, created = Topic.objects.get_or_create(name=topic_name)
+            
+            # Create and save the new room
+            new_room = form.save(commit=False)
+            new_room.host = request.user  # Set the host to the current user
+            new_room.topic = topic
+            new_room.save()
 
-        # Create the room
-        new_room = Room.objects.create(
-            host=request.user,
-            topic=topic,
-            name=request.POST.get('name'),
-            description=request.POST.get('description')
-        )
-        # Redirect to the newly created room's details page
-        return redirect('room', pk=new_room.pk)  # Replace with the correct redirect if necessary
+            # Redirect to the newly created room's details page
+            return redirect('room', pk=new_room.pk)
 
     context = {'form': form, 'topics': topics}
     return render(request, 'base/room_form.html', context)
@@ -200,13 +201,20 @@ def updateRoom(request, pk):
         return HttpResponse('You are not allowed here!!')
 
     if request.method == 'POST':
-        topic_name = request.POST.get('topic')
-        topic, created = Topic.objects.get_or_create(name=topic_name)
-        room.name = request.POST.get('name')
-        room.topic = topic
-        room.description = request.POST.get('description')
-        room.save()
-        return redirect('home')
+        form = RoomForm(request.POST, request.FILES, instance=room)  # Handle file upload and instance update
+        if form.is_valid():
+            # Get topic or create it if it doesn't exist
+            topic_name = request.POST.get('topic')
+            topic, created = Topic.objects.get_or_create(name=topic_name)
+            
+            # Update and save the room
+            updated_room = form.save(commit=False)
+            updated_room.host = request.user  # Ensure the host is set correctly
+            updated_room.topic = topic
+            updated_room.save()
+
+            # Redirect to the updated room's details page
+            return redirect('room', pk=updated_room.pk)
 
     context = {'form': form, 'topics': topics, 'room': room}
     return render(request, 'base/room_form.html', context)

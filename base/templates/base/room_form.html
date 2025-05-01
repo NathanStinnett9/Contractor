@@ -24,8 +24,9 @@
               Only "Company" users can create study rooms.
             </div>
           {% else %}
-            <form class="form" action="" method="POST">
+            <form class="form" action="" method="POST" enctype="multipart/form-data">  <!-- Added enctype for file uploads -->
               {% csrf_token %}
+              
               <div class="form__group">
                 <label for="room_topic">Enter Job Field(s)</label>
                 <input required type="text" value="{{room.topic.name}}" name="topic" list="topic-list" />
@@ -46,6 +47,12 @@
               <div class="form__group">
                 <label for="room_description">Job Description</label>
                 {{form.description}}
+              </div>
+
+              <!-- Image Upload -->
+              <div class="form__group">
+                <label for="room_image">Job Image</label>
+                {{form.image}}  <!-- Render image field here -->
               </div>
 
               <div class="form__action">
