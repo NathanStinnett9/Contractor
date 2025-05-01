@@ -143,7 +143,8 @@ def room(request, pk):
         message = Message.objects.create(
             user=request.user,
             room=room,
-            body=request.POST.get('body')
+            body=request.POST.get('body'),
+            message_type=request.POST.get('message_type')
         )
         room.participants.add(request.user)
         return redirect('room', pk=room.id)

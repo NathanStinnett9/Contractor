@@ -49,7 +49,7 @@
         <div class="room__conversation">
           <div class="threads scroll">
             {% for message in room_messages %}
-              {% if message.message_type == 'resume' and room.host == request.user %}
+              {% if message.message_type == 'resume' and room.host == request.user or request.user == message.user %}
                 <!-- Resume uploads: only visible to host -->
                 <div class="thread">
                   <div class="thread__top">
@@ -58,7 +58,7 @@
                         <div class="avatar avatar--small">
                           <img src="{{message.user.avatar.url}}" />
                         </div>
-                        <span>@{{message.user.username}} (Resume)</span>
+                        <span>@{{message.user.username}} ({{message.message_type}}) </span>
                       </a>
                       <span class="thread__date">{{message.create|timesince}} ago</span>
                     </div>
